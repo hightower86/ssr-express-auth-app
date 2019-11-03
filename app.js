@@ -1,9 +1,19 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
+// DB config
+const db = require('./config/keys').MongoURI;
+
+// Connect to MongoDB
+mongoose
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected ...'))
+  .catch(error => console.log(error));
 
 // PUG
 app.set('view engine', 'pug');
