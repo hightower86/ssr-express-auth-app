@@ -18,6 +18,9 @@ mongoose
 // PUG
 app.set('view engine', 'pug');
 
+// BodyParser
+app.use(express.urlencoded({ extended: false }));
+
 // Routes
 app.use(indexRouter);
 app.use('/users', require('./routes/users'));
