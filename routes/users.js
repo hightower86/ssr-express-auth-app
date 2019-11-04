@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User');
 
 // Login page
 router.get('/login', (req, res) => res.render('login'));
@@ -26,6 +27,7 @@ router.post('/register', (req, res) => {
   if (password.length < 6) {
     errors.push({ msg: 'password should be at least 6 characters' });
   }
+
   //console.log(errors);
   if (errors.length > 0) {
     res.render('register', {
@@ -36,9 +38,15 @@ router.post('/register', (req, res) => {
       password2
     });
   } else {
-    res.send('pass');
+    const newUser = new User({
+      name,
+      email,
+      password
+    });
+    newUser.save();
+    res.render('index');
+    console.log(newUser);
   }
-  console.log(req.body);
   res.send('Hello');
 });
 
