@@ -7,7 +7,7 @@ block content
       h1.text-center.mb-3
         i.fas.fa-user-plus
         |  Register
-      // <% include ./partials/messages %>
+      include partials/messages.pug
       form(action='/users/register', method='POST')
         .form-group
           label(for='name') Name
