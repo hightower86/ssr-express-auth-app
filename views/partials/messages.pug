@@ -16,3 +16,8 @@ if error_msg != ''
       strong= error_msg 
       button.close(type='button', data-dismiss='alert', aria-label='Close')
         span(aria-hidden='true') &times;
+if error != ''
+  .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+      strong= error 
+      button.close(type='button', data-dismiss='alert', aria-label='Close')
+        span(aria-hidden='true') &times;
