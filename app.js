@@ -35,6 +35,13 @@ app.use(
 // Connect flash
 app.use(flash());
 
+// Gloval vars
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
+});
+
 // Routes
 app.use(indexRouter);
 app.use('/users', require('./routes/users'));
