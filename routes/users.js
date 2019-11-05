@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const flash = require('connect-flash');
+const session = require('express-session');
+const bcrypt = require('bcrypt');
 
 // Login page
 router.get('/login', (req, res) => res.render('login'));
@@ -59,10 +62,19 @@ router.post('/register', (req, res) => {
           email,
           password
         });
-        newUser
-          .save()
-          .then(user => res.redirect('/users/login'))
-          .catch(err => console.log(err));
+        // Hash password
+        bcrypt.genSalt(10, (err, salt) =>
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            // Set password to hashed
+            newUser.password = hash;
+            // Save user
+            newUser
+              .save()
+              .then(user => res.redirect('/users/login'))
+              .catch(err => console.log(err));
+          })
+        );
       }
     });
     // const newUser = new User({
