@@ -5,8 +5,12 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
 
 const app = express();
+
+// Passport config
+require('./config/passport')(passport);
 
 // DB config
 const db = require('./config/keys').MongoURI;
@@ -31,6 +35,10 @@ app.use(
     saveUninitialized: true
   })
 );
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Connect flash
 app.use(flash());

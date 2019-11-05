@@ -86,16 +86,7 @@ router.post('/register', (req, res) => {
         );
       }
     });
-    // const newUser = new User({
-    //   name,
-    //   email,
-    //   password
-    // });
-    //newUser.save();
-    //res.render('index');
-    //console.log(newUser);
   }
-  //res.send('Hello');
 });
 
 module.exports = router;
