@@ -38,16 +38,43 @@ router.post('/register', (req, res) => {
       password2
     });
   } else {
-    const newUser = new User({
-      name,
-      email,
-      password
+    // Validation passed
+    User.findOne({ email: email }).then(user => {
+      if (user) {
+        // User exists
+        console.log('=============================================');
+        console.log('user exists');
+        console.log('=============================================');
+        errors.push({ msg: 'this Email is already registered' });
+        res.render('register', {
+          errors,
+          name,
+          email,
+          password,
+          password2
+        });
+      } else {
+        const newUser = new User({
+          name,
+          email,
+          password
+        });
+        newUser
+          .save()
+          .then(user => res.redirect('/users/login'))
+          .catch(err => console.log(err));
+      }
     });
-    newUser.save();
-    res.render('index');
-    console.log(newUser);
+    // const newUser = new User({
+    //   name,
+    //   email,
+    //   password
+    // });
+    //newUser.save();
+    //res.render('index');
+    //console.log(newUser);
   }
-  res.send('Hello');
+  //res.send('Hello');
 });
 
 module.exports = router;

@@ -1,6 +1,6 @@
-if typeof errors != 'undefined'
-each error in errors
-  .alert.alert-warning.alert-dismissible.fade.show(role='alert')
-    strong= error.msg 
-    button.close(type='button', data-dismiss='alert', aria-label='Close')
-      span(aria-hidden='true') &times;
+if typeof errors !== 'undefined'
+  each error in errors
+    .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+      strong= error.msg 
+      button.close(type='button', data-dismiss='alert', aria-label='Close')
+        span(aria-hidden='true') &times;
